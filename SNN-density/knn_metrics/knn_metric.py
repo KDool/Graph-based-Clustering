@@ -1,8 +1,5 @@
 import numpy as np
 import pandas as pd
-# from os import path
-# import sys
-# sys.path.append('./')
 # import read_data
 # import similarity_metric
 
@@ -32,25 +29,3 @@ def Knn_metric(nparray=None,k=None):
         index = Knn_vector(nparray_clone[i],k)
         B = np.vstack((B,index)) 
     return B
-
-
-# if __name__ == '__main__':
-#     DE = read_data.ReadData(path='/Users/vankhaido/HUST/GR2/TwitterDataset/DE/DE_')
-#     nparray_data =  DE.get_df_general()
-#     similarity_result = similarity_metric.Jaccard_similarity_metric(nparray_data)
-
-#     knn_result = Knn_metric(similarity_result,k=3)
-
-    
-#     # print(similarity_result[0])
-#     # knn = Knn_vector(similarity_result[0],7)
-#     # print(knn)
-#     # B = np.empty((0,3))
-#     # a = np.array([1,2,3])
-#     # b = np.array([3,4,5])
-#     # B = np.vstack((B,a))
-#     # B = np.vstack((B,b))
-#     # c = np.concatenate((a,b))
-#     df_knn = pd.DataFrame(knn_result)
-#     df_knn.to_csv('./knn_metric.csv',header=False,sep=' ',index=False)
-#     # print('knn metrics is: \n',knn_result)

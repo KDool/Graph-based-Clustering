@@ -10,6 +10,12 @@ class Graph:
         self.file_path = file_path
         self.nparray_adjacencies = nparray_adjacencies
         pass
+    
+    def addNode(self,np_array):
+        n = len(np_array)
+        for i in range (0,n):
+            print(i)
+            self.G.add_node(i)
 
     def addEdge(self,index, single_nparray):
         n = len(single_nparray)
@@ -23,13 +29,16 @@ class Graph:
     # Create network graph from Graph file 
     def createGraphFromFile(self):
         np_array = self.readCSVtoNumpy()
+        self.addNode(np_array=np_array)
         n = len(np_array)
+        
         for i in range(0,n):
             self.addEdge(i,np_array[i])
         return self.G
     # Create network graph from Nummpy Array of Ajacencies
     def createGraphFromAjacentList(self):
         n = len(self.nparray_adjacencies)
+        self.addNode(np_array=self.nparray_adjacencies)
         for i in range(0,n):
             self.addEdge(i,self.nparray_adjacencies[i])
         return self.G

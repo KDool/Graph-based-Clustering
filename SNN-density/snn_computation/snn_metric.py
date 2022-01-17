@@ -62,13 +62,11 @@ def create_snn_distance(knn_metric:np.array):
             snn_nparray[j][i] = snn_nparray[i][j]
     return snn_nparray
 
+
 if __name__=='__main__':
     np_array = read_knnMetric('../knn_metrics/knn_metric.csv')
     # count = compute_sharedNeighbors(0,2432,np_array)
     # snn_result = create_snnMetric(np_array)
-    # print(snn_result)
-    # df_snn = pd.DataFrame(snn_result)
-    # df_snn.to_csv('./snn_metric.csv',header=False,sep=' ',index=False)
     snn_distance_result = create_snn_distance(np_array)
     print(snn_distance_result)
     df_snn = pd.DataFrame(snn_distance_result)
