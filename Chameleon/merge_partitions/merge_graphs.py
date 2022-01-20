@@ -16,8 +16,8 @@ def removeEdges(Graph: nx.Graph, membership=list):
     df = pd.DataFrame(G.nodes(data=False)) 
     # list_nodes = df[0].values.tolist()
     for e in G.edges:
-        index_u = df.index[df[0]==e[0]][0]
-        index_v = df.index[df[0]==e[1]][0]
+        index_u = e[0]
+        index_v = e[1]
         if membership[index_u] != membership[index_v]:
             # print(e[0],e[1])
             G.remove_edge(e[0],e[1])
@@ -40,8 +40,8 @@ def merge(G:nx.Graph,subgraphs:list,sub_g1:nx.Graph,sub_g2:nx.Graph,membership:l
     
     # add edges cut before
     for e in G.edges:
-        index_u = df.index[df[0]==e[0]][0]
-        index_v = df.index[df[0]==e[1]][0]
+        index_u = e[0]
+        index_v = e[1]
         if (membership[index_u] == id1 and membership[index_v] == id2) or (membership[index_v] == id2 and membership[index_u] == id1):
             new_graph.add_edge(e[0],e[1])
 
@@ -55,6 +55,18 @@ def merge(G:nx.Graph,subgraphs:list,sub_g1:nx.Graph,sub_g2:nx.Graph,membership:l
     subgraphs[id]= new_graph
 
     return new_graph,subgraphs
+
+
+
+def merge_subgraphs(G:nx.Graph,G1:nx.Graph,id1,id2,membership:list):
+    # add edges cut before
+    for e in G.edges:
+        index_u = e[0]
+        index_v = e[1]
+        if (membership[index_u] == id1 and membership[index_v] == id2) or (membership[index_v] == id2 and membership[index_u] == id1):
+            G1.add_edge(e[0],e[1])
+    return G1
+
 
 if __name__ == '__main__':
     graph = Graph(file_path='/Users/vankhaido/HUST/GR2/Code/Chameleon/create_metrics/knn_metric.csv')

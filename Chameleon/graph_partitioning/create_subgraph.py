@@ -62,76 +62,45 @@ def unique(list1):
     return unique_list
 
 # Create a list of sub graphs after metis partition 
-# def make_subgraphs(G:nx.Graph,membership:list):
-#     graphs_label = unique(membership)   ## get unique list of sub-graphs
-#     graphs_list = [None]*len(graphs_label)                    # a list of subgraphs
+def make_subgraphs(G:nx.Graph,membership:list):
+    graphs_label = unique(membership)   ## get unique list of sub-graphs
+    graphs_list = [None]*len(graphs_label)                    # a list of subgraphs
 
-#     df = pd.DataFrame(G.nodes(data=False)) 
-#     # list_nodes = df[0].values.tolist()
-#     for id in graphs_label:
-#         temp = nx.Graph()
-#         for node in G.nodes:
-#             index_node = df.index[df[0]==node][0]
-#             if(membership[index_node] == id):
-#                 temp.add_node(node)
-#         for e in G.edges:
-#             index_u = df.index[df[0]==e[0]][0]
-#             index_v = df.index[df[0]==e[1]][0]
-#             if (membership[index_u] == membership[index_v]) and (membership[index_u] == id):
-#                 temp.add_edge(e[0],e[1])
-#         graphs_list[id]= temp
+    df = pd.DataFrame(G.nodes(data=False)) 
+    # list_nodes = df[0].values.tolist()
+    for id in graphs_label:
+        temp = nx.Graph()
+        for node in G.nodes:
+            index_node = df.index[df[0]==node][0]
+            if(membership[index_node] == id):
+                temp.add_node(node)
+        for e in G.edges:
+            index_u = df.index[df[0]==e[0]][0]
+            index_v = df.index[df[0]==e[1]][0]
+            if (membership[index_u] == membership[index_v]) and (membership[index_u] == id):
+                temp.add_edge(e[0],e[1])
+        graphs_list[id]= temp
 
-#     return graphs_list
+    return graphs_list
 
-def make_subgraphs(G:nx.Graph,id,knn_result:np.array,dictionary_label):
-    l = len(knn_result)
-    g = nx.Graph()
-    for key,value in dictionary_label.items():
-        if value == id:
-            # print(key)
-            g.add_node(key)
-    l_nodes = list(g.nodes)
-    # print(l_nodes)
-    size = len(l_nodes)
-    # print(type(l_nodes))
-    for i in range (0,size):
-        for j in range (i+1,size):
-            # print(l_nodes[i],l_nodes[j])
-            if G.has_edge(l_nodes[i],l_nodes[j]) == True:
-                g.add_edge(l_nodes[i],l_nodes[j])
-            else:
-                continue
-    return g
+# def make_subgraphs(G:nx.Graph,id,knn_result:np.array,dictionary_label):
+#     l = len(knn_result)
+#     g = nx.Graph()
+#     for key,value in dictionary_label.items():
+#         if value == id:
+#             # print(key)
+#             g.add_node(key)
+#     l_nodes = list(g.nodes)
+#     # print(l_nodes)
+#     size = len(l_nodes)
+#     # print(type(l_nodes))
+#     for i in range (0,size):
+#         for j in range (i+1,size):
+#             # print(l_nodes[i],l_nodes[j])
+#             if G.has_edge(l_nodes[i],l_nodes[j]) == True:
+#                 g.add_edge(l_nodes[i],l_nodes[j])
+#             else:
+#                 continue
+#     return g
     # return graphs_list
 
-# if __name__ == '__main__':
-
-#     graph = Graph(file_path='/Users/vankhaido/HUST/GR2/Code/Chameleon/create_metrics/knn_metric.csv')
-#     G = graph.createGraphFromFile()
-#     print(G)
-    
-#     n_cuts,membership = metis_algorithm.partitionGraph(G,nparts=100,recursive=True)
-#     print(membership)
-#     print(n_cuts)
-#     subgraphs = make_subgraphs(G,membership)
-#     # print(subgraphs)
-#     for i in range(0,len(subgraphs)):
-#         print(subgraphs[i])
-
-    # # print(membership)
-
-    # # print("Membership 5754: ",membership[5754])
-    # # print("Membership 4946: ",membership[0])
-
-    # G2 = removeEdges(G,membership)
-    # print(G2)
-
-    # # print(G2.has_edge(4806,5754))
-    # # #Make color map 
-    # print((unique(membership)))
-    
-    # color_map = make_colorMap(G,membership)
-    # print(unique(color_map))
-    # # print(color_map)
-    # nx.draw(G2,with_labels=False,node_color=color_map,node_shape="s",node_size=10)
-    # plt.show()

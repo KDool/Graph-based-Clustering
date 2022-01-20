@@ -17,8 +17,10 @@ def countEdgesBetweenClusters(G:nx.Graph(),subgraphs:list,sub_g1: nx.Graph(),sub
     count = 0
     df = pd.DataFrame(G.nodes(data=False)) 
     for e in G.edges:
-        index_u = df.index[df[0]==e[0]][0]
-        index_v = df.index[df[0]==e[1]][0]
+        # index_u = df.index[df[0]==e[0]][0]
+        # index_v = df.index[df[0]==e[1]][0]
+        index_u = e[0]
+        index_v = e[1]
         if (membership[index_u] == id1 and membership[index_v] == id2) or (membership[index_v] == id2 and membership[index_u] == id1):
             count += 1 
             # If an edge of original graph contains 2 vertices belong to sub_g1, sub_g2 --> count+1 
